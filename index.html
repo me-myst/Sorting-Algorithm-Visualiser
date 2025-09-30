@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorting Algorithm Visualizer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container" data-controller="sorting">
+      <div class="header">
+        <h1>🔄 Sorting Algorithm Visualizer</h1>
+        <p>Interactive visualization of popular sorting algorithms</p>
+      </div>
+
+      <div class="controls">
+        <div class="controls-grid">
+          <div class="control-group">
+            <label for="algorithm">Algorithm:</label>
+            <select data-sorting-target="algorithm" id="algorithm">
+              <option value="bubble">Bubble Sort</option>
+              <option value="selection">Selection Sort</option>
+              <option value="insertion">Insertion Sort</option>
+              <option value="quick">Quick Sort</option>
+              <option value="merge">Merge Sort</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label for="speed">Speed: <span id="speed-value">50</span>%</label>
+            <input
+              type="range"
+              id="speed"
+              min="1"
+              max="100"
+              value="50"
+              data-sorting-target="speed"
+              oninput="document.getElementById('speed-value').textContent = this.value + '%'"
+            />
+          </div>
+
+          <div class="control-group">
+            <label for="size"
+              >Array Size: <span id="size-value">50</span></label
+            >
+            <input
+              type="range"
+              id="size"
+              min="10"
+              max="100"
+              value="50"
+              data-sorting-target="size"
+              oninput="document.getElementById('size-value').textContent = this.value"
+            />
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button class="btn-primary" data-action="click->sorting#startSort">
+            ▶️ Start Sort
+          </button>
+          <button class="btn-danger" data-action="click->sorting#stopSort">
+            ⏹️ Stop
+          </button>
+          <button
+            class="btn-secondary"
+            data-action="click->sorting#generateArray"
+          >
+            🔄 Generate New Array
+          </button>
+        </div>
+      </div>
+
+      <div class="visualization">
+        <div class="array-container" data-sorting-target="container"></div>
+        <div class="status" data-sorting-target="status">
+          Array generated. Ready to sort!
+        </div>
+      </div>
+
+      <div class="algorithm-info">
+        <h3>📊 Algorithm Complexity Comparison</h3>
+        <table class="complexity-table">
+          <thead>
+            <tr>
+              <th>Algorithm</th>
+              <th>Best Case</th>
+              <th>Average Case</th>
+              <th>Worst Case</th>
+              <th>Space</th>
+              <th>Stable</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Bubble Sort</strong></td>
+              <td>O(n)</td>
+              <td>O(n²)</td>
+              <td>O(n²)</td>
+              <td>O(1)</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td><strong>Selection Sort</strong></td>
+              <td>O(n²)</td>
+              <td>O(n²)</td>
+              <td>O(n²)</td>
+              <td>O(1)</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td><strong>Insertion Sort</strong></td>
+              <td>O(n)</td>
+              <td>O(n²)</td>
+              <td>O(n²)</td>
+              <td>O(1)</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td><strong>Quick Sort</strong></td>
+              <td>O(n log n)</td>
+              <td>O(n log n)</td>
+              <td>O(n²)</td>
+              <td>O(log n)</td>
+              <td>No</td>
+            </tr>
+            <tr>
+              <td><strong>Merge Sort</strong></td>
+              <td>O(n log n)</td>
+              <td>O(n log n)</td>
+              <td>O(n log n)</td>
+              <td>O(n)</td>
+              <td>Yes</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Load Stimulus from CDN (UMD version for separate files) -->
+    <script src="https://unpkg.com/@hotwired/stimulus/dist/stimulus.umd.js"></script>
+
+    <!-- Load your controller -->
+    <script src="script.js"></script>
+  </body>
+</html>

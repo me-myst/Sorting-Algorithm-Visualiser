@@ -1,14 +1,40 @@
 // Sorting Algorithm Visualizer Controller
-// Make sure to include Stimulus UMD version in your HTML first
+// Vanilla JavaScript implementation
 
-class SortingController extends Stimulus.Controller {
-  static targets = ["container", "algorithm", "speed", "size", "status"];
-
-  connect() {
+class SortingVisualizer {
+  constructor() {
     this.array = [];
     this.isRunning = false;
     this.speed = 50;
+    
+    // Get DOM elements
+    this.containerTarget = document.querySelector('[data-sorting-target="container"]');
+    this.algorithmTarget = document.querySelector('[data-sorting-target="algorithm"]');
+    this.speedTarget = document.querySelector('[data-sorting-target="speed"]');
+    this.sizeTarget = document.querySelector('[data-sorting-target="size"]');
+    this.statusTarget = document.querySelector('[data-sorting-target="status"]');
+    
+    // Initialize
+    this.init();
+  }
+  
+  init() {
     this.generateArray();
+    this.setupEventListeners();
+  }
+  
+  setupEventListeners() {
+    // Start Sort button
+    document.querySelector('[data-action="click->sorting#startSort"]')
+      ?.addEventListener('click', () => this.startSort());
+    
+    // Stop button
+    document.querySelector('[data-action="click->sorting#stopSort"]')
+      ?.addEventListener('click', () => this.stopSort());
+    
+    // Generate Array button
+    document.querySelector('[data-action="click->sorting#generateArray"]')
+      ?.addEventListener('click', () => this.generateArray());
   }
 
   generateArray() {
@@ -235,15 +261,7 @@ class SortingController extends Stimulus.Controller {
   }
 }
 
-// Register the controller with Stimulus
-// Make sure this runs after Stimulus is loaded
+// Initialize the visualizer when DOM is ready
 document.addEventListener("DOMContentLoaded", function () {
-  if (typeof Stimulus !== "undefined") {
-    const application = Stimulus.Application.start();
-    application.register("sorting", SortingController);
-  } else {
-    console.error(
-      "Stimulus not found! Make sure to include Stimulus UMD script before this file."
-    );
-  }
+  window.sortingVisualizer = new SortingVisualizer();
 });

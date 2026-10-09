@@ -1,90 +1,68 @@
-# 🔄 Sorting Algorithm Visualizer
+# SortLab — Sorting Algorithm Visualizer
 
-An interactive web application that visualizes popular sorting algorithms in real-time.
-
-![Sorting Algorithm Visualizer](https://github.com/user-attachments/assets/b4e99280-3fbd-4a8a-92a5-674b9433b165)
+SortLab is a browser-based learning tool for exploring how common sorting algorithms rearrange an array. Select an algorithm, adjust the array size and animation speed, and follow highlighted comparisons as the values move into order.
 
 ## Features
 
-- **5 Sorting Algorithms**: Bubble Sort, Selection Sort, Insertion Sort, Quick Sort, and Merge Sort
-- **Interactive Visualization**: Watch sorting algorithms in action with color-coded bars
-- **Customizable Parameters**: 
-  - Adjust sorting speed (1-100%)
-  - Change array size (10-100 elements)
-- **Real-time Controls**: Start, Stop, and Generate New Array buttons
-- **Algorithm Comparison Table**: View time and space complexity for each algorithm
+- Six animated algorithms: Quick sort, Merge sort, Heap sort, Insertion sort, Selection sort, and Bubble sort.
+- Adjustable array size and animation speed, with shuffle and pause/resume controls.
+- Live comparison count and elapsed-time display.
+- Algorithm descriptions and best, average, and worst time complexity, plus auxiliary space.
+- Responsive layout, keyboard playback shortcut (Space), and reduced-motion support.
+- No framework, build step, or runtime dependencies.
 
-## How to Use
+## Run locally
 
-1. **Open the Application**: Simply open `index.html` in a web browser
-2. **Select Algorithm**: Choose from the dropdown menu
-3. **Adjust Settings**: 
-   - Use the speed slider to control visualization speed
-   - Use the array size slider to change the number of elements
-4. **Generate Array**: Click "Generate New Array" to create a new random array
-5. **Start Sorting**: Click "Start Sort" to begin the visualization
-6. **Stop Anytime**: Click "Stop" to halt the sorting process
-
-## Color Coding
-
-- **Blue**: Unsorted elements
-- **Orange/Red**: Elements being compared
-- **Green**: Sorted elements
-
-## Technologies Used
-
-- **HTML5**: Structure and layout
-- **CSS3**: Styling and animations
-- **JavaScript (ES6+)**: Sorting algorithms and DOM manipulation
-
-## Sorting Algorithms Implemented
-
-### Bubble Sort
-- **Time Complexity**: O(n²) average and worst case, O(n) best case
-- **Space Complexity**: O(1)
-- **Stable**: Yes
-
-### Selection Sort
-- **Time Complexity**: O(n²) all cases
-- **Space Complexity**: O(1)
-- **Stable**: No
-
-### Insertion Sort
-- **Time Complexity**: O(n²) average and worst case, O(n) best case
-- **Space Complexity**: O(1)
-- **Stable**: Yes
-
-### Quick Sort
-- **Time Complexity**: O(n log n) average and best case, O(n²) worst case
-- **Space Complexity**: O(log n)
-- **Stable**: No
-
-### Merge Sort
-- **Time Complexity**: O(n log n) all cases
-- **Space Complexity**: O(n)
-- **Stable**: Yes
-
-## Running Locally
-
-No build process required! Just:
+The project uses browser-native HTML, CSS, and JavaScript. You can open `index.html` directly, or serve the folder locally:
 
 ```bash
-# Option 1: Open directly
-open index.html
-
-# Option 2: Use a local server
-python3 -m http.server 8000
-# Then visit http://localhost:8000
+python -m http.server 8000
 ```
 
-## Browser Compatibility
+Then visit <http://localhost:8000>.
 
-Works on all modern browsers:
-- Chrome/Edge (recommended)
-- Firefox
-- Safari
-- Opera
+## Project structure
+
+```text
+sortlab-project/
+├── index.html
+├── README.md
+├── LICENSE
+└── src/
+    ├── app.js
+    └── style.css
+```
+
+## Algorithms and complexity
+
+| Algorithm | Best time | Average time | Worst time | Extra space |
+| --- | --- | --- | --- | --- |
+| Quick sort | O(n log n) | O(n log n) | O(n²) | O(log n) average recursion |
+| Merge sort | O(n log n) | O(n log n) | O(n log n) | O(n) |
+| Heap sort | O(n log n) | O(n log n) | O(n log n) | O(1) |
+| Insertion sort | O(n) | O(n²) | O(n²) | O(1) |
+| Selection sort | O(n²) | O(n²) | O(n²) | O(1) |
+| Bubble sort | O(n) with early exit | O(n²) | O(n²) | O(1) |
+
+## Implementation notes
+
+- Each algorithm is implemented directly in `src/app.js`; the visualizer does not use an algorithm library.
+- Animation is driven by async step functions, so comparisons can be visualized and playback paused.
+- The comparison metric counts comparisons between array values. It excludes bookkeeping operations such as merge-tail copies and swaps.
+- Elapsed time measures the animated run, including the selected animation delay. It is a teaching metric, not a benchmark of raw algorithm speed.
+- Quicksort uses the last array value as its pivot and has O(n²) worst-case time and O(n) worst-case recursion space.
+
+## Deployment
+
+This is a static site; no server-side runtime is required. To host it with GitHub Pages, push the project to a GitHub repository, open **Settings → Pages**, choose **Deploy from a branch**, select `main` and `/ (root)`, then save. GitHub will show the published URL in the Pages settings when the first deployment finishes. Netlify and other static hosts can publish the project directory directly.
+
+## Resume entry
+
+**SortLab — Sorting Algorithm Visualizer** | HTML, CSS, JavaScript  
+Built a responsive browser-based visualizer for six sorting algorithms with adjustable input size and animation speed, pause/resume controls, live comparison and elapsed-time metrics, and interactive complexity explanations.
+
+Replace this bullet with a measured outcome only after you have measured it, for example: “Implemented six algorithms and validated sorted output across randomized arrays.”
 
 ## License
 
-Free to use for educational purposes.
+MIT. See [LICENSE](LICENSE).

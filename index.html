@@ -1,143 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sorting Algorithm Visualizer</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="container" data-controller="sorting">
-      <div class="header">
-        <h1>🔄 Sorting Algorithm Visualizer</h1>
-        <p>Interactive visualization of popular sorting algorithms</p>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10131c">
+  <meta name="description" content="An interactive sorting algorithm visualizer for exploring comparisons, complexity, and performance.">
+  <title>SortLab — Sorting Visualizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+<main class="wrap">
+  <header class="top"><div class="brand"><div class="mark" aria-hidden="true">↗</div><div><strong>SortLab</strong><small>Sorting algorithms, made visible</small></div></div><span class="badge">INTERACTIVE PLAYGROUND</span></header>
+  <section class="intro"><div class="eyebrow">A hands-on algorithm lab</div><h1>See how order takes shape.</h1><p>Choose an algorithm, start the animation, and watch each comparison unfold.</p></section>
+  <div class="layout">
+    <section class="maincol">
+      <div class="panel toolbar" aria-label="Visualizer controls">
+        <div class="field"><label for="algorithm">Algorithm</label><select id="algorithm"><option value="quick">Quick sort</option><option value="merge">Merge sort</option><option value="heap">Heap sort</option><option value="insertion">Insertion sort</option><option value="selection">Selection sort</option><option value="bubble">Bubble sort</option></select></div>
+        <div class="field range"><div class="rangeHead"><label for="size">Array size</label><output id="sizeOut" for="size">48</output></div><input id="size" type="range" min="8" max="100" value="48"></div>
+        <div class="field range"><div class="rangeHead"><label for="speed">Speed</label><output id="speedOut" for="speed">Balanced</output></div><input id="speed" type="range" min="1" max="5" value="3"></div>
+        <button id="shuffle" class="secondary" title="Create a random array">↻ &nbsp;Shuffle</button><button id="play" class="primary">▶ &nbsp;Visualize</button>
       </div>
-
-      <div class="controls">
-        <div class="controls-grid">
-          <div class="control-group">
-            <label for="algorithm">Algorithm:</label>
-            <select data-sorting-target="algorithm" id="algorithm">
-              <option value="bubble">Bubble Sort</option>
-              <option value="selection">Selection Sort</option>
-              <option value="insertion">Insertion Sort</option>
-              <option value="quick">Quick Sort</option>
-              <option value="merge">Merge Sort</option>
-            </select>
-          </div>
-
-          <div class="control-group">
-            <label for="speed">Speed: <span id="speed-value">50</span>%</label>
-            <input
-              type="range"
-              id="speed"
-              min="1"
-              max="100"
-              value="50"
-              data-sorting-target="speed"
-              oninput="document.getElementById('speed-value').textContent = this.value + '%'"
-            />
-          </div>
-
-          <div class="control-group">
-            <label for="size"
-              >Array Size: <span id="size-value">50</span></label
-            >
-            <input
-              type="range"
-              id="size"
-              min="10"
-              max="100"
-              value="50"
-              data-sorting-target="size"
-              oninput="document.getElementById('size-value').textContent = this.value"
-            />
-          </div>
-        </div>
-
-        <div class="buttons">
-          <button class="btn-primary" data-action="click->sorting#startSort">
-            ▶️ Start Sort
-          </button>
-          <button class="btn-danger" data-action="click->sorting#stopSort">
-            ⏹️ Stop
-          </button>
-          <button
-            class="btn-secondary"
-            data-action="click->sorting#generateArray"
-          >
-            🔄 Generate New Array
-          </button>
-        </div>
-      </div>
-
-      <div class="visualization">
-        <div class="array-container" data-sorting-target="container"></div>
-        <div class="status" data-sorting-target="status">
-          Array generated. Ready to sort!
-        </div>
-      </div>
-
-      <div class="algorithm-info">
-        <h3>📊 Algorithm Complexity Comparison</h3>
-        <table class="complexity-table">
-          <thead>
-            <tr>
-              <th>Algorithm</th>
-              <th>Best Case</th>
-              <th>Average Case</th>
-              <th>Worst Case</th>
-              <th>Space</th>
-              <th>Stable</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><strong>Bubble Sort</strong></td>
-              <td>O(n)</td>
-              <td>O(n²)</td>
-              <td>O(n²)</td>
-              <td>O(1)</td>
-              <td>Yes</td>
-            </tr>
-            <tr>
-              <td><strong>Selection Sort</strong></td>
-              <td>O(n²)</td>
-              <td>O(n²)</td>
-              <td>O(n²)</td>
-              <td>O(1)</td>
-              <td>No</td>
-            </tr>
-            <tr>
-              <td><strong>Insertion Sort</strong></td>
-              <td>O(n)</td>
-              <td>O(n²)</td>
-              <td>O(n²)</td>
-              <td>O(1)</td>
-              <td>Yes</td>
-            </tr>
-            <tr>
-              <td><strong>Quick Sort</strong></td>
-              <td>O(n log n)</td>
-              <td>O(n log n)</td>
-              <td>O(n²)</td>
-              <td>O(log n)</td>
-              <td>No</td>
-            </tr>
-            <tr>
-              <td><strong>Merge Sort</strong></td>
-              <td>O(n log n)</td>
-              <td>O(n log n)</td>
-              <td>O(n log n)</td>
-              <td>O(n)</td>
-              <td>Yes</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Load the sorting visualizer script -->
-    <script src="script.js"></script>
-  </body>
-</html>
+      <section class="panel chartPanel"><div class="chartHead"><div class="chartName"><i class="led" id="led"></i><span id="chartTitle">Quick sort</span></div><div class="legend" aria-label="Bar colors"><span><i class="swatch"></i>Unsorted</span><span><i class="swatch compare"></i>Comparing</span><span><i class="swatch sorted"></i>Sorted</span><span><i class="swatch pivot"></i>Pivot</span></div></div><div id="chart" class="chart" role="img" aria-label="Random values represented by bars" aria-busy="false"></div><div class="status"><span id="message" aria-live="polite"><strong>Ready.</strong> Press visualize to begin.</span><div class="metrics"><span>COMPARES<b id="comparisons">0</b></span><span>ELAPSED<b id="elapsed">0.0s</b></span></div></div></section>
+    </section>
+    <aside class="panel side"><div class="label">At a glance</div><h2 id="infoTitle">Quick sort</h2><p id="description">Partitions values around a pivot, then sorts each partition recursively.</p><div class="complexity"><div class="chip"><small>Best</small><b id="best">O(n log n)</b></div><div class="chip"><small>Average</small><b id="average">O(n log n)</b></div><div class="chip"><small>Worst</small><b id="worst">O(n²)</b></div><div class="chip"><small>Extra space</small><b id="space">O(log n)</b></div></div><div class="divider"></div><p class="callout" id="tip">Gold marks the pivot. Pink bars are compared with it.</p></aside>
+  </div>
+  <footer class="foot"><span>Built for curiosity. Powered by algorithms.</span><span><kbd class="key">SPACE</kbd> &nbsp;play or pause</span></footer>
+</main>
+<script src="./src/app.js" defer></script>
+</body></html>
